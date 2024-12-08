@@ -2,8 +2,7 @@
 
 import { clerkClient } from "@clerk/nextjs/server";
 import { cookies } from "next/headers";
- import config from "@/tailwind.config";
-
+ 
 export const isAuthorized = async (
   userId: string
 )    => {
