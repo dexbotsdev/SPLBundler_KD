@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, Coins, Store, Droplets, Bitcoin, Rocket, Flame, Send } from 'lucide-react'
+import { LayoutDashboard, Coins, Store, Droplets, Scissors, Rocket, Flame, Send } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 
@@ -22,7 +22,7 @@ const navigation = [
   },
   // { name: "Create Bundle", href: "/dashboard/createBundler", icon: Droplets },
   { name: "Launch Bundle", href: "/dashboard/launchBundler", icon: Rocket,    badge: "Hot"  },
-  // { name: "Manage LP", href: "/dashboard/manageLp", icon: Plus },
+   { name: "Manage LP", href: "/dashboard/manageLp", icon: Scissors },
   // {
   //   name: "Airdrop",
   //   href: "/dashboard/airdrop",

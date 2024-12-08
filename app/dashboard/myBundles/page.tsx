@@ -12,6 +12,11 @@ import {
 import { useState, useEffect } from 'react'
 import { getMyTokens } from "./_actions"
 import { shortenTextWithDots, Wallet } from "@/app/lib/global"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Check, Copy, Minus, Plus } from 'lucide-react'
+import { toast } from "sonner"
+
 
 
 export default function DashboardPage() {
@@ -24,7 +29,12 @@ export default function DashboardPage() {
     return await getMyTokens();
   }
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+    toast.success('Info Copied -' + text)
 
+
+  }
 
   useEffect(()=>{ 
     console.log('Inside useEffect ')
@@ -83,7 +93,19 @@ export default function DashboardPage() {
           <TableRow key={meta.tokenAddress}>
             <TableCell className="font-medium">{meta.tokenAddress}</TableCell>
             <TableCell>{meta.marketId ? shortenTextWithDots(meta.marketId) : ' Not Created'}</TableCell>
-            <TableCell>{meta.poolId ? shortenTextWithDots(meta.poolId) : ' Not Created'}</TableCell>
+            <TableCell>
+            <div className="flex items-center gap-2"> 
+            <span className="text-sm font-mono">{meta.poolId ? shortenTextWithDots(meta.poolId) : ' Not Created'}</span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => copyToClipboard(meta.poolId)}
+                        className="h-6 w-6 text-white/70 hover:text-white"
+                      >
+                        <Copy className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    </TableCell>
            </TableRow>
         ))}
       </TableBody> 

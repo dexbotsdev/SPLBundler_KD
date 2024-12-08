@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import { Banknote, Folder, HomeIcon, Settings } from 'lucide-react'
+import { UserButton } from '@clerk/nextjs'
 
 export default function Header() {
   return (
@@ -19,13 +20,14 @@ export default function Header() {
           <span className="text-xl font-bold text-white">SPLBUNDLER</span>
         </div>
         <div className="flex items-center gap-4">
-        <Link href="/dashboard/settings">
-                  <Button variant="outline"  size={'md'}>
-                    <Settings className="mr-2 h-4 w-4" />
-                    Settings
-                  </Button>
-                </Link>
-          <ModeToggle />
+          <Link href="/dashboard/settings">
+            <Button variant="outline" size={'md'}>
+              <Settings className="mr-2 h-4 w-4" />
+              Settings
+            </Button>
+          </Link>
+          <UserButton />
+           <ModeToggle />
         </div>
       </div>
     </div>
