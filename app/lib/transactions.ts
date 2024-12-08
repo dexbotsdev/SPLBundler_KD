@@ -239,8 +239,7 @@ export const getUnixTs = () => {
     })();
     try {
       await awaitTransactionSignatureConfirmationLegacy(txid, timeout, connection,confirmStatus);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+     } catch (err: any) {
       if (err.timeout) {
         throw new Error("Timed out awaiting confirmation on transaction");
       }
@@ -393,8 +392,7 @@ export async function sendSignedTransaction({
     })();
     try {
       await awaitTransactionSignatureConfirmation(txid, timeout, connection,confirmStatus);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+     } catch (err: any) {
       if (err.timeout) {
         throw new Error("Timed out awaiting confirmation on transaction");
       }

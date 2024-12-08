@@ -1,31 +1,9 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { PrismaClient } from "@prisma/client";
-import { UserSetting } from "@/app/model/UserSettings";
 import {
-  clusterApiUrl, TransactionInstruction, ComputeBudgetProgram, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, Transaction,
-  SystemProgram
-} from "@solana/web3.js";
-import bs58 from 'bs58'
-import {
-  getMint,
-} from "@solana/spl-token";
-import { sendSignedTransactionLegacy, signTransactions } from "@/app/lib/transactions";
-import {
-  ENDPOINT as _ENDPOINT,
-  LOOKUP_TABLE_CACHE,
-  TOKEN_PROGRAM_ID,
-  DEVNET_PROGRAM_ID,
-  MAINNET_PROGRAM_ID,
-  SOL
-} from '@raydium-io/raydium-sdk';
-import { DEFAULT_TOKEN, TransactionWithSigners } from "@/app/lib/global";
-import NodeWallet from "@project-serum/anchor/dist/cjs/nodewallet";
+  ENDPOINT as _ENDPOINT} from '@raydium-io/raydium-sdk';
 
-import { getVaultOwnerAndNonce } from '../../lib/serum'
-import { ACCOUNT_SIZE, createInitializeAccountInstruction } from '@solana/spl-token';
-import { BN } from "@project-serum/anchor";
-import { DexInstructions, Market } from "@project-serum/serum";
 
 
 
