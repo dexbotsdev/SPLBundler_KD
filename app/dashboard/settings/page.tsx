@@ -57,8 +57,9 @@ export default function SettingsPage() {
 
   useEffect(()=>{ 
     fetchSettings().then((result:any)=>{ 
+      if(result){
         setSettings(result)
-    }) 
+    }}) 
   },[1])
 
   return ( 
