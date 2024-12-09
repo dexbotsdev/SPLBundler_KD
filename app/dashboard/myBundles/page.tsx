@@ -91,8 +91,32 @@ export default function DashboardPage() {
       <TableBody>
         {tokenMeta.map((meta:any) => (
           <TableRow key={meta.tokenAddress}>
-            <TableCell className="font-medium">{meta.tokenAddress}</TableCell>
-            <TableCell>{meta.marketId ? shortenTextWithDots(meta.marketId) : ' Not Created'}</TableCell>
+            <TableCell className="font-medium">
+            <div className="flex items-center gap-2"> 
+            <span className="text-sm font-mono">{meta.tokenAddress ? shortenTextWithDots(meta.tokenAddress) : ' Not Created'}</span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => copyToClipboard(meta.tokenAddress)}
+                        className="h-6 w-6 text-white/70 hover:text-white"
+                      >
+                        <Copy className="h-4 w-4" />
+                      </Button>
+                    </div>
+            </TableCell>
+            <TableCell> 
+            <div className="flex items-center gap-2"> 
+            <span className="text-sm font-mono">{meta.marketId ? shortenTextWithDots(meta.marketId) : ' Not Created'}</span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => copyToClipboard(meta.marketId)}
+                        className="h-6 w-6 text-white/70 hover:text-white"
+                      >
+                        <Copy className="h-4 w-4" />
+                      </Button>
+                    </div>
+            </TableCell>
             <TableCell>
             <div className="flex items-center gap-2"> 
             <span className="text-sm font-mono">{meta.poolId ? shortenTextWithDots(meta.poolId) : ' Not Created'}</span>

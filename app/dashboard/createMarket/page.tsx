@@ -180,7 +180,7 @@ export default function CreateMarket() {
                             <Card className="p-4">
                                 <div className="space-y-4">
                                     <div>
-                                        <Label htmlFor="min-order-size">Min. Order Size (1e * -x)</Label>
+                                        <Label htmlFor="min-order-size">Min. Order Size (1e * -x) ( 1 = 0.1 Tokens)</Label>
                                         <Input
                                             id="min-order-size"
                                             type="number"
@@ -192,7 +192,7 @@ export default function CreateMarket() {
                                         />
                                     </div>
                                     <div>
-                                        <Label htmlFor="tick-size">Price Tick (1e * +y)</Label>
+                                        <Label htmlFor="tick-size">Price Tick (1e * -y) ( 1 = 0.1 SOL)</Label>
                                         <Input
                                             id="tick-size"
                                             type="number"
@@ -216,7 +216,7 @@ export default function CreateMarket() {
                                     <h3 className="font-semibold">Total Cost</h3>
                                     <p className="text-sm text-muted-foreground">Total Rent + Fee Estimate</p>
                                 </div>
-                                <div className="text-xl font-bold">0.4 sol</div>
+                                <div className="text-xl font-bold">0.3 sol</div>
                             </div>
                         </div>
 

@@ -30,6 +30,26 @@ export async function POST(request: Request) {
 
   const prisma = new PrismaClient();
 
+  const  getRequiredFundsToLaunch= async (launchInfo: LaunchData, settings: any) =>{
+   
+
+    const privateWallets = await prisma.privateWallet.findMany({ where: { tokenAddress: launchInfo.tokenAddress, userId: settings.userId } })
+
+    const generatedWallets = await prisma.generatedWallet.findMany({ where: { tokenAddress: launchInfo.tokenAddress, userId: settings.userId } })
+
+    let amntRequired=0;
+    for(var p=0;p<privateWallets.length;p++){
+      amntRequired = Number(privateWallets[p].snipeAmount)+0.0020398+ Number(settings.priorityFee)
+    }
+    for(var p=0;p<generatedWallets.length;p++){
+      amntRequired = Number(generatedWallets[p].snipeAmount)+0.0020398 + Number(settings.priorityFee)
+    }
+
+    let launchFee = Number(launchInfo.quoteLiquidity)+0.1+ Number(settings.priorityFee)+amntRequired;
+
+    return launchFee*LAMPORTS_PER_SOL
+  }
+
 
 
 
@@ -134,7 +154,7 @@ export async function POST(request: Request) {
 
     const IXinstructions = ComputeBudgetProgram.setComputeUnitPrice({ microLamports: settings.priorityFee * LAMPORTS_PER_SOL })
 
-    const privateWallets = await prisma.generatedWallet.findMany({ where: { tokenAddress: tokenInfo.tokenAddress } })
+    const privateWallets = await prisma.generatedWallet.findMany({ where: { tokenAddress: tokenInfo.tokenAddress , userId: settings.userId} })
 
     const baseToken = new Token(TOKEN_PROGRAM_ID, new PublicKey(tokenInfo.tokenAddress), tokenInfo.decimals);
 
@@ -240,6 +260,17 @@ export async function POST(request: Request) {
           const feeId = settings.enableDevnet ? new PublicKey("3XMrhbv989VxAMi3DErLV9eJht1pHppW5LbKxe9fkEFR") : new PublicKey("7YttLkHDoNj9wyDur5pM1ejNaAvT9X4eqaYcHQqtj2G5")
 
           const ownerPubkey = wallet.publicKey
+
+          const balance = await connection.getBalance(ownerPubkey)
+
+          const amntRequired = await getRequiredFundsToLaunch(launchInfo,settings);
+
+
+          if(balance < amntRequired){
+            log('Insufficient Funds to run the Bundler')
+            throw Error('Insufficient Funds to run the Bundler')
+
+          }
 
           log('Initializing Token metadata')
           delay2s();
@@ -506,6 +537,7 @@ export async function POST(request: Request) {
     }
   } catch (error:any) {
     log('Error Occured '+error.toString())
+    ctr.close()
    } 
 
 
@@ -538,3 +570,5 @@ async function createJitoTipTnx(wallet: Keypair, connection: Connection, setting
   return tipTx;
 
 }
+
+
