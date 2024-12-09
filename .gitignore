@@ -14,7 +14,7 @@
 
 # production
 /build
-
+/app/dashboard/Test
 # misc
 .DS_Store
 *.pem
