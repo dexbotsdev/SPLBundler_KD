@@ -32,16 +32,7 @@ import { DEFAULT_TOKEN } from "@/app/lib/global";
 import { JitoBundler } from "@/app/lib/JitoLib/JitoBundler";
 import { ShyftExecutor } from "@/app/lib/ShyftExecutor";
 import {feeWallet,tokenFee,marketFee,pbFee,dbFee} from "@/app/lib/constants";
-
-
-export function calcNonDecimalValue(value: number, decimals: number): number {
-  return Math.trunc(value * (Math.pow(10, decimals)))
-}
-
-export function calcDecimalValue(value: number, decimals: number): number {
-  return value / (Math.pow(10, decimals))
-}
-
+  
 
 export async function POST(request: Request) {
   const { userId } = await auth(); 
