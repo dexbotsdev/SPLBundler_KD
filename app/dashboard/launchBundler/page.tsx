@@ -93,6 +93,24 @@ export default function LaunchBundlerPage() {
   
   const handleSellWalletTokens = async(wallet : Wallet, sellPercentage: string)=>{
 
+
+    const sellData = { 
+      tokenAddress:searchData.tokenAddress,
+      address:wallet.address, 
+      percentage:sellPercentage 
+    };
+ 
+    const results = await axios.post('/api/sellWallet',sellData);
+
+ 
+    if(results.status){
+       toast.success("Sold   from Wallet ."+wallet.address) 
+
+    } else {
+      toast.error("Failed to sell wallet tokens") 
+ 
+    }
+
   }
   const handleRecoveWalletSol = async(wallet : Wallet)=>{
 
@@ -247,7 +265,7 @@ export default function LaunchBundlerPage() {
                     <DialogHeader>
                       <DialogTitle>Sell All Tokens</DialogTitle>
                     </DialogHeader>
-                    <SellAllTokensForm privateWallets={searchData.privateWallets} generatedWallets={searchData.generatedWallets} />
+                    <SellAllTokensForm privateWallets={searchData.privateWallets} generatedWallets={searchData.generatedWallets} tokenAddress={searchData.tokenAddress}/>
                   </DialogContent>
                 </Dialog>
                 <RecoverSolModal onRecover={handleRecoverSol}>

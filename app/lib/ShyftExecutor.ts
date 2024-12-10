@@ -69,3 +69,24 @@ export class ShyftExecutor {
     return { confirmed: !confirmation.value.err, signature };
   }
 }
+
+
+export async function submitBundleWithRetry(shyft: ShyftExecutor, chunk: string[], signers: Keypair[], blockhash: any, maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await shyft.submitBundle(chunk, signers, blockhash, () => { });
+      if (response && response.length > 0 && response.every(r => r.status === 'confirmed')) {
+        return response;
+      }
+      console.log(`Attempt ${attempt} failed. Retrying...`);
+    } catch (error) {
+      console.error(`Error on attempt ${attempt}:`, error);
+      if (attempt === maxRetries) {
+        throw error;
+      }
+    }
+    // Wait for a short time before retrying
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
+  throw new Error(`Failed to submit bundle after ${maxRetries} attempts`);
+}
